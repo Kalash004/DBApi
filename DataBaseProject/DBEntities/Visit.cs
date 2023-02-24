@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using DataBaseProject.Interfaces;
@@ -27,8 +28,15 @@ namespace DataBaseProject.DBEntities
             this.time = time;
         }
 
-        public int ID { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int ID { get => id; set => this.id = value; }
         public DateTime Time { get => time; set => time = value; }
+
+        public String SqlTime {
+            get { 
+                String sqlFormattedDate = this.time.ToString("yyyy-MM-dd HH:mm:ss.fff");
+                return sqlFormattedDate;
+            }
+        }
         internal User User { get => user; set => user = value; }
     }
 }

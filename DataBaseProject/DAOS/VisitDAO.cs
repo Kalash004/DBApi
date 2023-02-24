@@ -40,7 +40,7 @@ namespace DataBaseProject.DAOS
                 {
                     Visit visit = new Visit(
                         Convert.ToInt32(reader[0].ToString()),
-                        new UserDAO().GetByID(Convert.ToInt32(reader[1].ToString())),
+                        new UserDAO().GetByID(Convert.ToInt32(reader[1].ToString())), // Not sure if this is the right way of handling references
                         Convert.ToDateTime(reader[2].ToString())
                     );
                     yield return visit;
@@ -51,12 +51,53 @@ namespace DataBaseProject.DAOS
 
         public Visit? GetByID(int id)
         {
-            throw new NotImplementedException();
+            SqlConnection conn = DataBaseSingleton.GetInstance();
+            Visit? visit = null;
+
+            using (SqlCommand command = new SqlCommand(C_READ_BY_ID, conn))
+            {
+                command.Parameters.Add(new SqlParameter("@id", id));
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    visit = new Visit(
+                        Convert.ToInt32(reader[0].ToString()),
+                        new UserDAO().GetByID(Convert.ToInt32(reader[1].ToString())), // Not sure if this is the right way of handling references
+                        Convert.ToDateTime(reader[2].ToString())
+                        );
+                }
+                reader.Close();
+            }
+            return visit;
         }
 
         public void Save(Visit element)
         {
-            throw new NotImplementedException();
+            SqlConnection conn = DataBaseSingleton.GetInstance();
+
+            SqlCommand command = null;
+
+            if (element.ID < 0)
+            {
+                using (command = new SqlCommand(C_SAVE, conn))
+                {
+                    command.Parameters.Add(new SqlParameter("@userId", element.User.ID));
+                    command.Parameters.Add(new SqlParameter("@visit_date", element.SqlTime));
+                    command.ExecuteNonQuery();
+                    command.CommandText = "Select @@Identity";
+                    element.ID = Convert.ToInt32(command.ExecuteScalar());
+                }
+            }
+            else
+            {
+                using (command = new SqlCommand(C_UPDATE, conn))
+                {
+                    command.Parameters.Add(new SqlParameter("@id", element.ID));
+                    command.Parameters.Add(new SqlParameter("@userId", element.User.ID));
+                    command.Parameters.Add(new SqlParameter("@visit_date", element.SqlTime));
+                    command.ExecuteNonQuery();
+                }
+            }
         }
     }
 }

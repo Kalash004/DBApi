@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using DataBaseProject.DBEntities;
@@ -11,7 +12,6 @@ namespace DataBaseProject.DAOS
 {
     internal class UserDAO : IDAO<User>
     {
-
         private static String table = "Users";
         private String C_SAVE = String.Format("INSERT INTO {0} (user_id, u_name, u_surname, total_spent) VALUES (@user_id, @u_name, @u_surname, @total_spent)", table);
         private String C_UPDATE = String.Format("UPDATE {0} SET user_id = @user_id, u_name = @u_name, u_surname = @u_surname, total_spent = @total_spent WHERE id = @id", table);
@@ -60,7 +60,6 @@ namespace DataBaseProject.DAOS
             {
                 command.Parameters.Add(new SqlParameter("@id", id));
                 SqlDataReader reader = command.ExecuteReader();
-
                 while (reader.Read())
                 {
                     user = new User(
@@ -91,7 +90,6 @@ namespace DataBaseProject.DAOS
                     command.Parameters.Add(new SqlParameter("@u_surname", element.Surname));
                     command.Parameters.Add(new SqlParameter("@total_spent", element.Total_spent));
                     command.ExecuteNonQuery();
-                    //zjistim id posledniho vlozeneho zaznamu
                     command.CommandText = "Select @@Identity";
                     element.ID = Convert.ToInt32(command.ExecuteScalar());
                 }
