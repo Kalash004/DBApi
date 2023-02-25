@@ -10,13 +10,11 @@ namespace DataBaseProject
     {
         static void Main(string[] args)
         {
-            HaircutDAOImpl hairdao = new HaircutDAOImpl();
-            StaffDAOImpl staffdao = new StaffDAOImpl();
-            PaintDAOImpl paintdao = new PaintDAOImpl();
-            VisitDAOImpl visitdao = new VisitDAOImpl();  
-            PaidActionDAOImpl paidActionDAOImpl = new PaidActionDAOImpl();
-            ItemsDAOImpl itemsDAO = new ItemsDAOImpl();
-            itemsDAO.Create(new Item(visitdao.GetByID(1),staffdao.GetByID(2),paidActionDAOImpl.GetByID(1)));
+          IDAO<User> userDao = new UserDAOImpl();
+           Console.WriteLine(userDao.GetByID(1).ToString());
+
+            IDataExporter exp = new JSONExporter();
+            exp.Export("");
         }
     }
 }

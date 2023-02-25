@@ -39,21 +39,9 @@ namespace DataBaseProject.DAOS
             return GetByID(C_READ_BY_ID, id);
         }
 
-        public User? GetByIDWithVisits(int id)
-        {
-            User? user = GetByID(id);
-            if (user != null)
-            {
-                VisitDAOImpl visitDAO = new VisitDAOImpl();
-                var user_visits = visitDAO.GetUserVisits(id);
-                user.Visits = user_visits;
-            }
-            return user;
-        }
-
         public void Save(User element)
         {
-            Update(C_UPDATE, element, element.ID);
+            Update(C_UPDATE, element,element.ID);
         }
 
         protected override User Map(SqlDataReader reader)

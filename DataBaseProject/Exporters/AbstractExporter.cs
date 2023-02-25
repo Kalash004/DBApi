@@ -15,6 +15,7 @@ namespace DataBaseProject.Exporters
         {
             IDAO<User> userDao = new UserDAOImpl();
             return userDao.GetAll();
+
         }
 
     }

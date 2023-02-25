@@ -4,7 +4,6 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 using DataBaseProject.DBEntities;
 using DataBaseProject.Interfaces;
 
@@ -42,7 +41,7 @@ namespace DataBaseProject.DAOS
 
         public void Save(Visit element)
         {
-            Update(C_UPDATE, element,element.ID);
+            Update(C_UPDATE, element, element.ID);
         }
 
         protected override Visit Map(SqlDataReader reader)
@@ -69,7 +68,7 @@ namespace DataBaseProject.DAOS
             {
                 new SqlParameter("@id", id),
             };
-            return Get(C_READ_BY_USER_ID,paramers);
+            return Get(C_READ_BY_USER_ID, paramers);
         }
     }
 }
