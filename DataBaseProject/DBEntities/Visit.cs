@@ -8,7 +8,7 @@ using DataBaseProject.Interfaces;
 
 namespace DataBaseProject.DBEntities
 {
-    internal class Visit : IBaseClass
+    public class Visit : IBaseClass
     {
         private int id;
         private User user;
@@ -28,15 +28,23 @@ namespace DataBaseProject.DBEntities
             this.time = time;
         }
 
+        public Visit() { }
         public int ID { get => id; set => this.id = value; }
         public DateTime Time { get => time; set => time = value; }
 
-        public String SqlTime {
-            get { 
+        public String SqlTime
+        {
+            get
+            {
                 String sqlFormattedDate = this.time.ToString("yyyy-MM-dd HH:mm:ss.fff");
                 return sqlFormattedDate;
             }
         }
-        internal User User { get => user; set => user = value; }
+        public User User { get => user; set => user = value; }
+
+        public override string ToString()
+        {
+            return String.Format("Id: {0}, user: {1}, date: {2}",id,user,Time.ToString());
+        }
     }
 }

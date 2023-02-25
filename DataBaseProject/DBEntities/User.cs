@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,13 +8,16 @@ using DataBaseProject.Interfaces;
 
 namespace DataBaseProject.DBEntities
 {
-    internal class User : IBaseClass
+    public class User : IBaseClass
     {
+            
         private int id;
         private int user_id;
         private string name;
         private string surname;
         private int total_spent;
+        private List<Visit> visits;
+
         public User(int id, int user_id, string name, string surname, int total_spent)
         {
             this.id = id;
@@ -22,7 +26,9 @@ namespace DataBaseProject.DBEntities
             this.surname = surname;
             this.total_spent = total_spent;
         }
-
+        public User()
+        {
+        }
         public User(int user_id, string name, string surname, int total_spent)
         {
             this.id = -1;
@@ -36,7 +42,16 @@ namespace DataBaseProject.DBEntities
         public string Name { get => name; set => name = value; }
         public string Surname { get => surname; set => surname = value; }
         public int Total_spent { get => total_spent; set => total_spent = value; }
+        public List<Visit> Visits { get => visits; set => visits = value; }
 
+        public void AddVisit(Visit visit)
+        {
+            if (this.Visits == null)
+            {
+                this.Visits = new List<Visit>();
+            }
+            this.Visits.Add(visit);
+        }
 
         public override string ToString()
         {

@@ -9,8 +9,9 @@ namespace DataBaseProject.Interfaces
     internal interface IDAO<T> where T : IBaseClass
     {
         T? GetByID(int id);
-        IEnumerable<T> GetAll();
+        List<T> GetAll();
+        int Create(T element);
         void Save(T element);
-        void Delete(T element);
+        void Delete(int id);
     }
 }

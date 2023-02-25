@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace DataBaseProject
 {
-    internal class DataBaseSingleton
+    internal class DataBaseConnection
     {
-        private static SqlConnection conn = null;
-        private DataBaseSingleton()
+        private SqlConnection conn = null;
+        public DataBaseConnection()
         {
         }
 
-        public static SqlConnection GetInstance()
+        public SqlConnection GetInstance()
         {
             if (conn == null)
             {

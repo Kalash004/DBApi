@@ -54,3 +54,4 @@ D:\Documents\csharp\Projects\DataBaseProject\DataBaseProject\DataBaseProject\obj
 D:\Documents\csharp\Projects\DataBaseProject\DataBaseProject\DataBaseProject\obj\Debug\net6.0\DataBaseProject.pdb
 D:\Documents\csharp\Projects\DataBaseProject\DataBaseProject\DataBaseProject\obj\Debug\net6.0\DataBaseProject.genruntimeconfig.cache
 D:\Documents\csharp\Projects\DataBaseProject\DataBaseProject\DataBaseProject\obj\Debug\net6.0\ref\DataBaseProject.dll
+D:\Documents\csharp\Projects\DataBaseProject\DataBaseProject\DataBaseProject\bin\Debug\net6.0\Newtonsoft.Json.dll
