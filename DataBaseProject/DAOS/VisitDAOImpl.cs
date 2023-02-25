@@ -63,7 +63,7 @@ namespace DataBaseProject.DAOS
             };
         }
 
-        internal List<Visit> GetUserVisits(int id)
+        public List<Visit> GetUserVisits(int id)
         {
             var paramers = new List<SqlParameter>
             {

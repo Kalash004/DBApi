@@ -11,10 +11,10 @@ namespace DataBaseProject.DBEntities
     {
         private int id;
         private string p_name;
-        private string remains;
+        private int remains;
         private int price;
 
-        public Paint(string p_name, string remains, int price)
+        public Paint(string p_name, int remains, int price)
         {
             this.id = -1;
             this.p_name = p_name;
@@ -22,7 +22,8 @@ namespace DataBaseProject.DBEntities
             this.price = price;
         }
 
-        public Paint(int id, string p_name, string remains, int price)
+        public Paint() { }
+        public Paint(int id, string p_name, int remains, int price)
         {
             this.id = id;
             this.p_name = p_name;
@@ -32,7 +33,7 @@ namespace DataBaseProject.DBEntities
 
         public int ID { get => id; set => id = value; }
         public string P_name { get => p_name; set => p_name = value; }
-        public string Remains { get => remains; set => remains = value; }
+        public int Remains { get => remains; set => remains = value; }
         public int Price { get => price; set => price = value; }
     }
 }

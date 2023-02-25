@@ -10,7 +10,7 @@ namespace DataBaseProject
 {
     internal class DataBaseConnection
     {
-        private SqlConnection conn = null;
+        private SqlConnection? conn = null;
         public DataBaseConnection()
         {
         }

@@ -47,12 +47,13 @@ namespace DataBaseProject.DAOS
         protected override Haircut Map(SqlDataReader reader)
         {
             return new Haircut(
-                   reader[0].ToString(),
+                   Convert.ToInt32(reader[0].ToString()),
                    reader[1].ToString(),
-                   Convert.ToInt32(reader[4].ToString())
+                   reader[2].ToString(),
+                   Convert.ToInt32(reader[3].ToString())
                    );
         }
-
+         
         protected override List<SqlParameter> Map(Haircut obj)
         {
             return new List<SqlParameter>

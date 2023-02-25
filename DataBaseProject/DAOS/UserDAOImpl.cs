@@ -41,7 +41,7 @@ namespace DataBaseProject.DAOS
 
         public User? GetByIDWithVisits(int id)
         {
-            User user = GetByID(id);
+            User? user = GetByID(id);
             if (user != null)
             {
                 VisitDAOImpl visitDAO = new VisitDAOImpl();

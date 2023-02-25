@@ -7,7 +7,7 @@ using DataBaseProject.Interfaces;
 
 namespace DataBaseProject.DBEntities
 {
-    internal class Haircut:IBaseClass
+    internal class Haircut : IBaseClass
     {
         private int id;
         private string name;
@@ -22,6 +22,7 @@ namespace DataBaseProject.DBEntities
             this.price = price;
         }
 
+        public Haircut() { }
         public Haircut(int id, string name, string description, int price)
         {
             this.id = id;

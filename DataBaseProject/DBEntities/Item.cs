@@ -24,7 +24,7 @@ namespace DataBaseProject.DBEntities
             this.staff_on_duty = staff_on_duty;
             this.action = action;
         }
-
+        public Item() { }
         public Item(int id, Visit visit, Staff staff_on_duty, PaidAction action)
         {
             this.id = id;

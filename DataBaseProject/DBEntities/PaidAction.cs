@@ -19,6 +19,7 @@ namespace DataBaseProject.DBEntities
             this.haircut = haircut;
             this.paint = paint;
         }
+        public PaidAction() { }
 
         public PaidAction(int id, Haircut haircut, Paint paint)
         {

@@ -23,6 +23,8 @@ namespace DataBaseProject.DBEntities
             this.surname = surname;
             this.month_pay = month_pay;
         }
+
+        public Staff() { }
         public Staff(int staff_id, string name, string surname, int month_pay)
         {
             this.id = -1;

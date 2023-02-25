@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using DataBaseProject.DBEntities;
 using System.Data.SqlClient;
+using System.Data;
 
 namespace DataBaseProject.DAOS
 {
@@ -18,7 +19,7 @@ namespace DataBaseProject.DAOS
             SqlCommand command;
             try
             {
-                conn =new DataBaseConnection().GetInstance();
+                conn = new DataBaseConnection().GetInstance();
                 if (conn.State == System.Data.ConnectionState.Closed)
                 {
                     conn.Open();
@@ -42,7 +43,7 @@ namespace DataBaseProject.DAOS
             {
                 try
                 {
-                    if (conn != null)
+                    if (conn.State != ConnectionState.Closed)
                     {
                         conn.Close();
                     }
@@ -85,7 +86,7 @@ namespace DataBaseProject.DAOS
             {
                 try
                 {
-                    if (conn != null)
+                    if (conn.State != ConnectionState.Closed)
                     {
                         conn.Close();
                     }
@@ -122,7 +123,7 @@ namespace DataBaseProject.DAOS
             {
                 try
                 {
-                    if (conn != null)
+                    if (conn.State != ConnectionState.Closed)
                     {
                         conn.Close();
                     }
@@ -164,11 +165,11 @@ namespace DataBaseProject.DAOS
             {
                 try
                 {
-                    if (reader != null)
+                    if (!reader.IsClosed)
                     {
                         reader.Close();
                     }
-                    if (conn != null)
+                    if (conn.State != ConnectionState.Closed)
                     {
                         conn.Close();
                     }
@@ -216,11 +217,11 @@ namespace DataBaseProject.DAOS
             {
                 try
                 {
-                    if (reader != null)
+                    if (!reader.IsClosed)
                     {
                         reader.Close();
                     }
-                    if (conn != null)
+                    if (conn.State != ConnectionState.Closed)
                     {
                         conn.Close();
                     }
@@ -264,11 +265,11 @@ namespace DataBaseProject.DAOS
             {
                 try
                 {
-                    if (reader != null)
+                    if (!reader.IsClosed)
                     {
                         reader.Close();
                     }
-                    if (conn != null)
+                    if (conn.State != ConnectionState.Closed)
                     {
                         conn.Close();
                     }
