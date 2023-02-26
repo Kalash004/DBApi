@@ -27,7 +27,7 @@ namespace DataBaseProject.Manager
 
 
         [Obsolete("Method is deprecated")]
-        public void PrintAllData()
+        private void PrintAllData()
         {
             var hairs = haircutDAO.GetAll();
             var items = itemsDAO.GetAll();
@@ -76,7 +76,7 @@ namespace DataBaseProject.Manager
         public void Menu()
         {
             Console.Clear();
-            int chose = Chose("Please Choose Action: 1)Read, 2)Change, 3)Remove, 4)Add, 5)Export", 1, 5);
+            int chose = Choose("Please Choose Action: 1)Read, 2)Change, 3)Remove, 4)Add, 5)Export");
             switch (chose)
             {
                 case 1:
@@ -94,6 +94,9 @@ namespace DataBaseProject.Manager
                 case 5:
                     Export();
                     break;
+                default:
+                    Console.WriteLine("Out of menu number");
+                    break;
             }
         }
 
@@ -101,10 +104,9 @@ namespace DataBaseProject.Manager
         {
             throw new NotImplementedException();
         }
-
         public void Read()
         {
-            int chose = Chose("Please Choose Which Table to Read: 1)Users, 2)Staff, 3)Visits, 4)Paints, 5)Haircuts", 1, 5);
+            int chose = Choose("Please Choose Which Table to Read: 1)Users, 2)Staff, 3)Visits, 4)Paints, 5)Haircuts");
             switch (chose)
             {
                 case 1:
@@ -137,18 +139,23 @@ namespace DataBaseProject.Manager
                         Console.WriteLine(str);
                     }
                     break;
+                default:
+                    Console.WriteLine("Out of menu number");
+                    break;
             }
             Console.WriteLine("To return to menu press any key");
             Console.ReadKey(true);
         }
-
         public void Add()
         {
-            int chose = Chose("Please Choose to Which Table Add an Entity: 1)Users", 1, 1);
+            int chose = Choose("Please Choose to Which Table Add an Entity: 1)Users");
             switch (chose)
             {
                 case 1:
                     AddUser();
+                    break;
+                default:
+                    Console.WriteLine("Out of menu number");
                     break;
             }
         }
@@ -156,11 +163,14 @@ namespace DataBaseProject.Manager
         {
             try
             {
-                int chose = Chose("Please Choose Which Table to Remove from: 1)Users", 1, 1);
+                int chose = Choose("Please Choose Which Table to Remove from: 1)Users");
                 switch (chose)
                 {
                     case 1:
                         RemoveUser();
+                        break;
+                    default:
+                        Console.WriteLine("Out of menu number");
                         break;
                 }
             }
@@ -174,41 +184,43 @@ namespace DataBaseProject.Manager
         }
         public void Update()
         {
-            int chose = Chose("Please Choose Which Table to Update: 1)Users", 1, 1);
+            int chose = Choose("Please Choose Which Table to Update: 1)Users");
             switch (chose)
             {
                 case 1:
                     UpdateUser();
                     break;
-                    //case 2:
-                    //    foreach (var str in ReadStaff())
-                    //    {
-                    //        Console.WriteLine(str);
-                    //    }
-                    //    break;
-                    //case 3:
-                    //    foreach (var str in ReadVisits())
-                    //    {
-                    //        Console.WriteLine(str);
-                    //    }
-                    //    break;
-                    //case 4:
-                    //    foreach (var str in ReadPaint())
-                    //    {
-                    //        Console.WriteLine(str);
-                    //    }
-                    //    break;
-                    //case 5:
-                    //    foreach (var str in ReadHaircuts())
-                    //    {
-                    //        Console.WriteLine(str);
-                    //    }
-                    //    break;
+                //case 2:
+                //    foreach (var str in ReadStaff())
+                //    {
+                //        Console.WriteLine(str);
+                //    }
+                //    break;
+                //case 3:
+                //    foreach (var str in ReadVisits())
+                //    {
+                //        Console.WriteLine(str);
+                //    }
+                //    break;
+                //case 4:
+                //    foreach (var str in ReadPaint())
+                //    {
+                //        Console.WriteLine(str);
+                //    }
+                //    break;
+                //case 5:
+                //    foreach (var str in ReadHaircuts())
+                //    {
+                //        Console.WriteLine(str);
+                //    }
+                //    break;
+                default:
+                    Console.WriteLine("Out of menu number");
+                    break;
             }
             Console.WriteLine("To return to menu press any key");
             Console.ReadKey(true);
         }
-
         public User AddUser()
         {
             String[] questions = { "Write User id", "Users Name", "Users Surname", "Total Money Spent" };
@@ -226,7 +238,6 @@ namespace DataBaseProject.Manager
             userDAO.Create(user);
             return user;
         }
-
         public void RemoveUser()
         {
             var user_strings = ReadUsers();
@@ -234,10 +245,9 @@ namespace DataBaseProject.Manager
             {
                 Console.WriteLine(str);
             }
-            int chose = Chose("Please specify the id of the user you want to remove : ", 0, user_strings.Count());
+            int chose = Choose("Please specify the id of the user you want to remove : ");
             userDAO.Delete(chose);
         }
-
         public void UpdateUser()
         {
             var user_strings = ReadUsers();
@@ -245,7 +255,7 @@ namespace DataBaseProject.Manager
             {
                 Console.WriteLine(str);
             }
-            int chose = Chose("Please specify the id of the user you want to change : ", 0, user_strings.Count());
+            int chose = Choose("Please specify the id of the user you want to change : ");
             User usr = null;
             try
             {
@@ -257,13 +267,13 @@ namespace DataBaseProject.Manager
                 Console.WriteLine("Error: Most likely you didnt write id the right way, retry");
                 UpdateUser();
             }
-            chose = Chose("Which property to change ? 1)User id, 2)Name, 3)Surname, 4)Total money spent", 1, 4);
+            chose = Choose("Which property to change ? 1)User id, 2)Name, 3)Surname, 4)Total money spent");
             switch (chose)
             {
                 case 1:
                     try
                     {
-                        int change = Chose("Input value: ", -1999999999, 1999999999);
+                        int change = Choose("Input value: ");
                         usr.User_id = change;
                     }
                     catch (Exception e)
@@ -296,7 +306,7 @@ namespace DataBaseProject.Manager
                 case 4:
                     try
                     {
-                        int change = Chose("Input value: ", -1999999999, 1999999999);
+                        int change = Choose("Input value: ");
                         usr.Total_spent = change;
                     }
                     catch (Exception e)
@@ -304,27 +314,110 @@ namespace DataBaseProject.Manager
                         throw;
                     }
                     break;
+                default:
+                    Console.WriteLine("Out of menu number");
+                    break;
             }
             userDAO.Save(usr);
         }
-        private int Chose(String choses, int min, int max)
+        public void AddVisit()
         {
-            Console.WriteLine(choses);
+            Visit visit = CreateVisit();
+            List<Item> items = CreateItems(visit);
+        }
 
-            int x = -1;
-            while (x == -1)
+        private List<Item> CreateItems(Visit visit)
+        {
+            bool done = false;
+            List<Item> items = new List<Item>(); 
+            while (!done)
             {
-                if (int.TryParse(Console.ReadLine(), out x)) //TODO: maybe tell user about max min
-                {
-                }
-                else
-                {
-                    Console.WriteLine("You didnt write a number");
-                    x = -1;
-                }
-            }
-            return x;
+                PaidAction paidAction = CreatePaidAction();
 
+            }
+            throw new NotImplementedException();
+        }
+
+        private PaidAction CreatePaidAction()
+        {
+            // choose paints and haircuts
+            var haircuts = haircutDAO.GetAll();
+            var paints = paintDAO.GetAll();
+            foreach (var cuts in haircuts)
+            {
+                Console.WriteLine(cuts.ToString());
+            }
+            foreach (var paintt in paints)
+            {
+                Console.WriteLine(paintt.ToString());
+            }
+            int cutid = Choose("Please write the id of the haircut");
+            int paintid = Choose("Please write the id of the paint");
+            var cut = haircutDAO.GetByID(cutid);
+            var paint = paintDAO.GetByID(paintid);
+            PaidAction action = null;
+            try
+            {
+                action = new PaidAction(cut, paint);
+                paidActionDAO.Create(action);
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine("There was an error press enter to return back to menu");
+                Console.ReadKey(true);
+                Menu();
+            }
+            return action;
+        }
+
+        private Visit CreateVisit()
+        {
+            foreach (var user_get in userDAO.GetAll())
+            {
+                Console.WriteLine(user_get.ToString());
+            }
+            int id = Choose("Please choose id of the user that visited");
+            User user = userDAO.GetByID(id);
+            DateTime time = CreateTime();
+            Visit visit = new Visit(user,time);
+            try
+            {
+                visitDAO.Create(visit);
+            } catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine("There was an error with creating visit");
+            }
+            return visit;
+        }
+
+        private DateTime CreateTime()
+        {
+            DateTime dateTime;
+            try
+            {
+                Console.Write("Enter a month: ");
+                int month = int.Parse(Console.ReadLine());
+                Console.Write("Enter a day: ");
+                int day = int.Parse(Console.ReadLine());
+                Console.Write("Enter a year: ");
+                int year = int.Parse(Console.ReadLine());
+                Console.Write("Enter a hour: ");
+                int hour = int.Parse(Console.ReadLine());
+                Console.Write("Enter a minute: ");
+                int minute = int.Parse(Console.ReadLine());
+                Console.Write("Enter a second: ");
+                int second = int.Parse(Console.ReadLine());
+                dateTime = new DateTime(year, month, day, hour, minute, second);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine("There was an error with creating date please retry");
+                dateTime = CreateTime();
+            }
+                return dateTime;
         }
 
         private User UserCreater(String[] questions)
@@ -391,6 +484,25 @@ namespace DataBaseProject.Manager
                 }
                 yield return retr;
             }
+        }
+        private int Choose(String choses)
+        {
+            Console.WriteLine(choses);
+
+            int x = -1;
+            while (x == -1)
+            {
+                if (int.TryParse(Console.ReadLine(), out x)) //TODO: maybe tell user about max min
+                {
+                }
+                else
+                {
+                    Console.WriteLine("You didnt write a number");
+                    x = -1;
+                }
+            }
+            return x;
+
         }
     }
 }
