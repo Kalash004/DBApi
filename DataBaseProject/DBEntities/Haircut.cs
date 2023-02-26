@@ -35,5 +35,10 @@ namespace DataBaseProject.DBEntities
         public string Name { get => name; set => name = value; }
         public string Description { get => description; set => description = value; }
         public int Price { get => price; set => price = value; }
+
+        public override string ToString()
+        {
+            return String.Format("Haircut - Id: {0}, Name: {1}, Price: {2}",ID,Name,Price);
+        }
     }
 }

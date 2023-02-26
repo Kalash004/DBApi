@@ -38,5 +38,10 @@ namespace DataBaseProject.DBEntities
             }
         }
         public User User { get => user; set => user = value; }
+
+        public override string ToString()
+        {
+            return String.Format("Visit - Id: {0}, User: {1} {2}, time: {3}",ID,User.Name,User.Surname,Time.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+        }
     }
 }

@@ -253,7 +253,7 @@ namespace DataBaseProject.DAOS
                     reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        return Map(reader);
+                       return Map(reader);
                     }
                 }
             }
@@ -283,6 +283,54 @@ namespace DataBaseProject.DAOS
             return default(T);
         }
 
+        public List<T> GetByConnectingID(String SQL, int id, String tag)
+        {
+            SqlConnection? conn = null;
+            SqlCommand command;
+            SqlDataReader? reader = null;
+            List<T> list = new List<T>();
+            try
+            {
+                conn = new DataBaseConnection().GetInstance();
+                if (conn.State == System.Data.ConnectionState.Closed)
+                {
+                    conn.Open();
+                }
+                using (command = new SqlCommand(SQL, conn))
+                {
+                    command.Parameters.Add(new SqlParameter(tag, id));
+                    reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        list.Add(Map(reader));
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+            finally
+            {
+                try
+                {
+                    if (!reader.IsClosed)
+                    {
+                        reader.Close();
+                    }
+                    if (conn.State != ConnectionState.Closed)
+                    {
+                        conn.Close();
+                    }
+
+                }
+                catch (Exception e1)
+                {
+
+                }
+            }
+            return list;
+        } 
         protected abstract T Map(SqlDataReader reader);
 
         protected abstract List<SqlParameter> Map(T obj);

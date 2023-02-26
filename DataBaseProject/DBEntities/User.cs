@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,6 +45,7 @@ namespace DataBaseProject.DBEntities
         public int Total_spent { get => total_spent; set => total_spent = value; }
         public List<Visit> Visits { get => visits; set => visits = value; }
 
+
         public void AddVisit(Visit visit)
         {
             if (this.Visits == null)
@@ -55,7 +57,7 @@ namespace DataBaseProject.DBEntities
 
         public override string ToString()
         {
-            return String.Format("Id: {0},user id: {1},name: {2},surname: {3},total spent: {4}",ID,User_id,Name,Surname,Total_spent);
+            return String.Format("User - Id: {0},user id: {1},name: {2},surname: {3},total spent: {4}",ID,User_id,Name,Surname,Total_spent);
         }
     }
 }

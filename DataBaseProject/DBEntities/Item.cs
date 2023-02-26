@@ -37,5 +37,10 @@ namespace DataBaseProject.DBEntities
         internal Visit Visit { get => visit; set => visit = value; }
         internal Staff Staff_on_duty { get => staff_on_duty; set => staff_on_duty = value; }
         internal PaidAction Action { get => action; set => action = value; }
+
+        public override string ToString()
+        {
+            return String.Format("Item - Id: {0}, Visit Date: {1}, Staff name: {2} {3}, Haircut: {4}, Paint: {5}",ID,Visit.SqlTime,Staff_on_duty.Name,Staff_on_duty.Surname,Action.Haircut.Name,Action.Paint.P_name);
+        }
     }
 }

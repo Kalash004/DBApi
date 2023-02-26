@@ -39,5 +39,10 @@ namespace DataBaseProject.DBEntities
         public string Name { get => name; set => name = value; }
         public string Surname { get => surname; set => surname = value; }
         public int Month_pay { get => month_pay; set => month_pay = value; }
+
+        public override string ToString()
+        {
+            return String.Format("Staff - Id: {0}, Name: {1} {2}, Pay: {3}",ID,Name,Surname,Month_pay);
+        }
     }
 }

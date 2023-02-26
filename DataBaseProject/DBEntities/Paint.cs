@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,5 +36,10 @@ namespace DataBaseProject.DBEntities
         public string P_name { get => p_name; set => p_name = value; }
         public int Remains { get => remains; set => remains = value; }
         public int Price { get => price; set => price = value; }
+
+        public override string ToString()
+        {
+            return String.Format("Paint - Id: {0}, Color: {1}, Remains in storage: {2}, Price: {3}",ID,P_name,Remains,Price);
+        }
     }
 }

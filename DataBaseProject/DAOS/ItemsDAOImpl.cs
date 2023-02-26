@@ -17,6 +17,7 @@ namespace DataBaseProject.DAOS
         private String C_READ_ALL = String.Format("SELECT * FROM {0}", table);
         private String C_READ_BY_ID = String.Format("SELECT * FROM {0} WHERE id = @id", table);
         private String C_DELETE = String.Format("DELETE FROM {0} WHERE id = @id", table);
+        private String C_GET_BY_VISIT_ID = String.Format("SELECT * FROM {0} WHERE visitId = @visitId",table);
 
         public int Create(Item element)
         {
@@ -41,6 +42,11 @@ namespace DataBaseProject.DAOS
         public void Save(Item element)
         {
             Update(C_UPDATE, element, element.ID);
+        }
+
+        public List<Item> GetAllByVisitID(int id)
+        {
+            return GetByConnectingID(C_GET_BY_VISIT_ID,id,"@visitId");
         }
 
         protected override Item Map(SqlDataReader reader)

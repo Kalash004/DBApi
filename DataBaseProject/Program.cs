@@ -1,7 +1,9 @@
-﻿using DataBaseProject.DAOS;
+﻿using System.ComponentModel.Design;
+using DataBaseProject.DAOS;
 using DataBaseProject.DBEntities;
 using DataBaseProject.Exporters;
 using DataBaseProject.Interfaces;
+using DataBaseProject.Manager;
 
 namespace DataBaseProject
 {
@@ -10,11 +12,13 @@ namespace DataBaseProject
     {
         static void Main(string[] args)
         {
-          IDAO<User> userDao = new UserDAOImpl();
-           Console.WriteLine(userDao.GetByID(1).ToString());
-
-            IDataExporter exp = new JSONExporter();
-            exp.Export("");
+            bool done = false;
+            var manager = new DBManager();
+            while (!done)
+            {
+                manager.Menu();
+            }
+         
         }
     }
 }
