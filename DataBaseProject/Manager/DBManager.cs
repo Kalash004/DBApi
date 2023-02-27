@@ -148,11 +148,14 @@ namespace DataBaseProject.Manager
         }
         public void Add()
         {
-            int chose = Choose("Please Choose to Which Table Add an Entity: 1)Users");
+            int chose = Choose("Please Choose to Which Table Add an Entity: 1)Users 2)Visit");
             switch (chose)
             {
                 case 1:
                     AddUser();
+                    break;
+                case 2:
+                    AddVisit();
                     break;
                 default:
                     Console.WriteLine("Out of menu number");
@@ -323,19 +326,31 @@ namespace DataBaseProject.Manager
         public void AddVisit()
         {
             Visit visit = CreateVisit();
-            List<Item> items = CreateItems(visit);
+            CreateItems(visit);
         }
 
-        private List<Item> CreateItems(Visit visit)
+        private void CreateItems(Visit visit)
         {
             bool done = false;
-            List<Item> items = new List<Item>(); 
             while (!done)
             {
                 PaidAction paidAction = CreatePaidAction();
-
+                Staff staff;
+                foreach (var s in new StaffDAOImpl().GetAll())
+                {
+                    Console.WriteLine(s.ToString());
+                }
+                int choose = Choose("Please choose id of staff who was working");
+                try
+                {
+                    staff = new StaffDAOImpl().GetByID(choose);
+                } catch (Exception e)
+                {
+                    throw;
+                }
+                Item item = new Item(visit, staff, paidAction);
+                new ItemsDAOImpl().Create(item);
             }
-            throw new NotImplementedException();
         }
 
         private PaidAction CreatePaidAction()
@@ -356,10 +371,11 @@ namespace DataBaseProject.Manager
             var cut = haircutDAO.GetByID(cutid);
             var paint = paintDAO.GetByID(paintid);
             PaidAction action = null;
+            int id = 0;
             try
             {
                 action = new PaidAction(cut, paint);
-                paidActionDAO.Create(action);
+                id = paidActionDAO.Create(action);
             }
             catch (SqlException e)
             {
@@ -368,6 +384,7 @@ namespace DataBaseProject.Manager
                 Console.ReadKey(true);
                 Menu();
             }
+            action.ID = id;
             return action;
         }
 
@@ -381,14 +398,16 @@ namespace DataBaseProject.Manager
             User user = userDAO.GetByID(id);
             DateTime time = CreateTime();
             Visit visit = new Visit(user,time);
+            int another_id = -1;
             try
             {
-                visitDAO.Create(visit);
+                another_id = visitDAO.Create(visit);
             } catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 Console.WriteLine("There was an error with creating visit");
             }
+            visit.ID = another_id;
             return visit;
         }
 

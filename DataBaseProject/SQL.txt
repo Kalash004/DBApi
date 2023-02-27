@@ -1,0 +1,73 @@
+﻿use kalashnikov;
+create table Users(
+	id int primary key identity(1,1),
+	user_id int not null unique,
+	u_name varchar(50) not null,
+	u_surname varchar(50) not null,
+	total_spent int not null,
+);
+
+create table Visits(
+	id int primary key identity(1,1),
+	userId int foreign key references Users(id),
+	visit_date datetime not null
+);
+
+create table Staff(
+	id int primary key identity(1,1),
+	staff_id int not null unique,
+	month_pay int not null,
+	s_name varchar(50) not null,
+	s_surname varchar(50) not null
+);
+
+-- create one empty haircut if no haircut was done
+create table Haircuts(
+	id int primary key identity(1,1),
+	h_name varchar(50) not null,
+	h_description varchar(200),
+	price int not null
+);
+
+-- create one empty paint if no dying was done
+create table Paints(
+	id int primary key identity(1,1),
+	p_name varchar(50) not null,
+	remains int not null, -- how many paint cans are still in bank
+	price int not null
+);
+
+create table PaidAction(
+	id int primary key identity(1,1),
+	haircutId int foreign key references Haircuts(id),
+	paintId int foreign key references Paints(id)
+);
+
+create table Items(
+	id int primary key identity(1,1),
+	visitId int foreign key references Visits(id),
+	staffId int foreign key references Staff(id),
+	actionId int foreign key references PaidAction(id),
+);
+
+Drop table Items;
+Drop table Visits;
+Drop table Users;
+Drop table PaidAction;
+Drop table Staff;
+Drop table Haircuts;
+Drop table Paints;
+
+ -------------------
+ ALTER TABLE Staff
+drop COLUMN s_surename;
+alter table Staff
+add s_surname varchar(50) not null;
+
+select * from Users;
+select * from Visits;
+select * from Haircuts;
+select * from Staff;
+select * from Paints;
+select * from PaidAction;
+select * from Items;
