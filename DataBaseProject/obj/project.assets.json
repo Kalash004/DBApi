@@ -385,6 +385,19 @@
           }
         }
       },
+      "Sylvan.Data.Csv/1.2.7": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/Sylvan.Data.Csv.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Sylvan.Data.Csv.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "System.Configuration.ConfigurationManager/7.0.0": {
         "type": "package",
         "dependencies": {
@@ -1422,6 +1435,28 @@
         "version.txt"
       ]
     },
+    "Sylvan.Data.Csv/1.2.7": {
+      "sha512": "XXe2VajvrCxhhPZCDmMl2s9T5jYaxDjsMatNHbUPivItDjJrmxV2vLSzgidDjJluwF3ZaoiQ2lcLx+qz9hgtPw==",
+      "type": "package",
+      "path": "sylvan.data.csv/1.2.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Sylvan.png",
+        "lib/net6.0/Sylvan.Data.Csv.dll",
+        "lib/net6.0/Sylvan.Data.Csv.xml",
+        "lib/netcoreapp3.0/Sylvan.Data.Csv.dll",
+        "lib/netcoreapp3.0/Sylvan.Data.Csv.xml",
+        "lib/netstandard2.0/Sylvan.Data.Csv.dll",
+        "lib/netstandard2.0/Sylvan.Data.Csv.xml",
+        "lib/netstandard2.1/Sylvan.Data.Csv.dll",
+        "lib/netstandard2.1/Sylvan.Data.Csv.xml",
+        "license.txt",
+        "readme.md",
+        "sylvan.data.csv.1.2.7.nupkg.sha512",
+        "sylvan.data.csv.nuspec"
+      ]
+    },
     "System.Configuration.ConfigurationManager/7.0.0": {
       "sha512": "WvRUdlL1lB0dTRZSs5XcQOd5q9MYNk90GkbmRmiCvRHThWiojkpGqWdmEDJdXyHbxG/BhE5hmVbMfRLXW9FJVA==",
       "type": "package",
@@ -2347,6 +2382,7 @@
     "net6.0": [
       "Microsoft.Data.SqlClient >= 5.1.0",
       "Newtonsoft.Json >= 13.0.2",
+      "Sylvan.Data.Csv >= 1.2.7",
       "System.Configuration.ConfigurationManager >= 7.0.0",
       "System.Data.SqlClient >= 4.8.5"
     ]
@@ -2397,6 +2433,10 @@
           "Newtonsoft.Json": {
             "target": "Package",
             "version": "[13.0.2, )"
+          },
+          "Sylvan.Data.Csv": {
+            "target": "Package",
+            "version": "[1.2.7, )"
           },
           "System.Configuration.ConfigurationManager": {
             "target": "Package",

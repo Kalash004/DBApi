@@ -1,1 +1,1 @@
-# DBApi
+#Pro pouziti, vytvorte si databasi pomoci sql.txt, potom si zadejte do app.config ip database, nazev databaze,  vas login a vase heslo.

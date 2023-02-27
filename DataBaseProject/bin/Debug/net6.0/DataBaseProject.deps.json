@@ -10,6 +10,7 @@
         "dependencies": {
           "Microsoft.Data.SqlClient": "5.1.0",
           "Newtonsoft.Json": "13.0.2",
+          "Sylvan.Data.Csv": "1.2.7",
           "System.Configuration.ConfigurationManager": "7.0.0",
           "System.Data.SqlClient": "4.8.5"
         },
@@ -284,6 +285,14 @@
             "rid": "win-x86",
             "assetType": "native",
             "fileVersion": "4.6.25512.1"
+          }
+        }
+      },
+      "Sylvan.Data.Csv/1.2.7": {
+        "runtime": {
+          "lib/net6.0/Sylvan.Data.Csv.dll": {
+            "assemblyVersion": "1.2.7.0",
+            "fileVersion": "1.2.7.0"
           }
         }
       },
@@ -655,6 +664,13 @@
       "sha512": "sha512-YhEdSQUsTx+C8m8Bw7ar5/VesXvCFMItyZF7G1AUY+OM0VPZUOeAVpJ4Wl6fydBGUYZxojTDR3I6Bj/+BPkJNA==",
       "path": "runtime.win-x86.runtime.native.system.data.sqlclient.sni/4.4.0",
       "hashPath": "runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512"
+    },
+    "Sylvan.Data.Csv/1.2.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-XXe2VajvrCxhhPZCDmMl2s9T5jYaxDjsMatNHbUPivItDjJrmxV2vLSzgidDjJluwF3ZaoiQ2lcLx+qz9hgtPw==",
+      "path": "sylvan.data.csv/1.2.7",
+      "hashPath": "sylvan.data.csv.1.2.7.nupkg.sha512"
     },
     "System.Configuration.ConfigurationManager/7.0.0": {
       "type": "package",

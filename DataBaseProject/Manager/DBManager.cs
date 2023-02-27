@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Drawing;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using DataBaseProject.DAOS;
 using DataBaseProject.DBEntities;
+using DataBaseProject.Exporters;
 using DataBaseProject.Interfaces;
 using Microsoft.Data.SqlClient;
 using Microsoft.Identity.Client;
@@ -23,6 +27,7 @@ namespace DataBaseProject.Manager
         StaffDAOImpl staffDAO = new StaffDAOImpl();
         UserDAOImpl userDAO = new UserDAOImpl();
         VisitDAOImpl visitDAO = new VisitDAOImpl();
+        CSVImporter importer = new CSVImporter();
 
 
 
@@ -76,7 +81,7 @@ namespace DataBaseProject.Manager
         public void Menu()
         {
             Console.Clear();
-            int chose = Choose("Please Choose Action: 1)Read, 2)Change, 3)Remove, 4)Add, 5)Export");
+            int chose = Choose("Please Choose Action: 1)Read, 2)Change, 3)Remove, 4)Add, 5)Import");
             switch (chose)
             {
                 case 1:
@@ -92,12 +97,54 @@ namespace DataBaseProject.Manager
                     Add();
                     break;
                 case 5:
-                    Export();
+                    Import();
                     break;
                 default:
                     Console.WriteLine("Out of menu number");
                     break;
             }
+        }
+
+        private void Import()
+        {
+            Console.Clear();
+            int chose = Choose("Please Choose Which Table to Import: 1)Users, 2)Paints, 3)Haicuts");
+            switch (chose)
+            {
+                case 1:
+                    ImportUsers();
+                    break;
+                case 2:
+                    ImportPaints();
+                    break;
+                case 3:
+                    ImportHaircuts();
+                    break;
+                default:
+                    Console.WriteLine("Out of menu number");
+                    break;
+            }
+        }
+
+        private void ImportHaircuts()
+        {
+            Console.WriteLine("Please write pathfile of the .csv table (example :"+ @"\C:\programs\file.txt\)");
+            String path = Console.ReadLine();
+            importer.ImportHaircuts(path);
+        }
+
+        private void ImportPaints()
+        {
+            Console.WriteLine("Please write pathfile of the .csv table (example :" + @"\C:\programs\file.txt\)");
+            String path = Console.ReadLine();
+            importer.ImportPaint(path);
+        }
+
+        private void ImportUsers()
+        {
+            Console.WriteLine("Please write pathfile of the .csv table (example :" + @"\C:\programs\file.txt\)");
+            String path = Console.ReadLine();
+            importer.ImportUser(path);
         }
 
         private void Export()
@@ -148,7 +195,7 @@ namespace DataBaseProject.Manager
         }
         public void Add()
         {
-            int chose = Choose("Please Choose to Which Table Add an Entity: 1)Users 2)Visit");
+            int chose = Choose("Please Choose to Which Table Add an Entity: 1)Users 2)Visit 3)Haircut 4)Paint 5)Staff");
             switch (chose)
             {
                 case 1:
@@ -157,9 +204,58 @@ namespace DataBaseProject.Manager
                 case 2:
                     AddVisit();
                     break;
+                case 3:
+                    AddHairCut();
+                    break;
+                case 4:
+                    AddPaint();
+                    break;
+                case 5:
+                    AddStaff();
+                    break;
                 default:
                     Console.WriteLine("Out of menu number");
                     break;
+            }
+        }
+
+        private void AddStaff()
+        {
+            String[] questions = {"Write staff id","Name","Surname","Payment"};
+            Staff staff = StaffCreater(questions);
+            try
+            {
+                new StaffDAOImpl().Create(staff);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        private void AddPaint()
+        {
+            String[] questions = { "Write paint color", "How much of the paint remains in storage", "Price (only numbers)" };
+            Paint paint = PaintCreater(questions);
+            try
+            {
+                new PaintDAOImpl().Create(paint);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        private void AddHairCut()
+        {
+            String[] questions = { "Write Haircut name", "Haircut description", "Price (only numbers)" };
+            Haircut haircut = HaircutCreater(questions);    
+            try
+            {
+                new HaircutDAOImpl().Create(haircut);
+            } catch
+            {
+                throw;
             }
         }
         public void Remove()
@@ -224,6 +320,8 @@ namespace DataBaseProject.Manager
             Console.WriteLine("To return to menu press any key");
             Console.ReadKey(true);
         }
+
+        //------------------------------------
         public User AddUser()
         {
             String[] questions = { "Write User id", "Users Name", "Users Surname", "Total Money Spent" };
@@ -323,11 +421,13 @@ namespace DataBaseProject.Manager
             }
             userDAO.Save(usr);
         }
+        // -----------------------------------
         public void AddVisit()
         {
             Visit visit = CreateVisit();
             CreateItems(visit);
         }
+        
 
         private void CreateItems(Visit visit)
         {
@@ -437,6 +537,68 @@ namespace DataBaseProject.Manager
                 dateTime = CreateTime();
             }
                 return dateTime;
+        }
+        public Haircut HaircutCreater(String[] questions)
+        {
+            List<String> answers = new List<string>();
+            foreach (var q in questions)
+            {
+                bool answered = false;
+                while (!answered)
+                {
+                    Console.WriteLine(q);
+                    var answer = Console.ReadLine();
+                    Console.WriteLine(q + " : " + answer + " | Y/N ?");
+                    if (Console.ReadKey(true).Key == ConsoleKey.Y)
+                    {
+                        answers.Add(answer);
+                        answered = true;
+                    }
+                }
+            }
+            return new Haircut(answers[0], answers[1], int.Parse(answers[2]));
+        }
+
+        public Paint PaintCreater(String[] questions)
+        {
+            List<String> answers = new List<string>();
+            foreach (var q in questions)
+            {
+                bool answered = false;
+                while (!answered)
+                {
+                    Console.WriteLine(q);
+                    var answer = Console.ReadLine();
+                    Console.WriteLine(q + " : " + answer + " | Y/N ?");
+                    if (Console.ReadKey(true).Key == ConsoleKey.Y)
+                    {
+                        answers.Add(answer);
+                        answered = true;
+                    }
+                }
+            }
+            return new Paint(answers[0], int.Parse(answers[1]), int.Parse(answers[2]));
+        }
+
+        public Staff StaffCreater(String[] questions)
+        {
+            List<String> answers = new List<string>();
+            foreach (var q in questions)
+            {
+                bool answered = false;
+                while (!answered)
+                {
+                    Console.WriteLine(q);
+                    var answer = Console.ReadLine();
+                    Console.WriteLine(q + " : " + answer + " | Y/N ?");
+                    if (Console.ReadKey(true).Key == ConsoleKey.Y)
+                    {
+                        answers.Add(answer);
+                        answered = true;
+                    }
+                }
+            }
+            return new Staff(int.Parse(answers[0]), answers[1], answers[2], int.Parse(answers[3]));
         }
 
         private User UserCreater(String[] questions)

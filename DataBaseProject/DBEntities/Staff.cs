@@ -42,7 +42,7 @@ namespace DataBaseProject.DBEntities
 
         public override string ToString()
         {
-            return String.Format("Staff - Id: {0}, Name: {1} {2}, Pay: {3}",ID,Name,Surname,Month_pay);
+            return String.Format("Staff - Id: {0},Staff id :{4} Name: {1} {2}, Pay: {3}",ID,Name,Surname,Month_pay,Staff_id);
         }
     }
 }

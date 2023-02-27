@@ -12,9 +12,8 @@ namespace DataBaseProject
     {
         static void Main(string[] args)
         {
-            bool done = false;
             var manager = new DBManager();
-            while (!done)
+            while (true)
             {
                 manager.Menu();
             }

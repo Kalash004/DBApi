@@ -48,6 +48,10 @@
               "target": "Package",
               "version": "[13.0.2, )"
             },
+            "Sylvan.Data.Csv": {
+              "target": "Package",
+              "version": "[1.2.7, )"
+            },
             "System.Configuration.ConfigurationManager": {
               "target": "Package",
               "version": "[7.0.0, )"
