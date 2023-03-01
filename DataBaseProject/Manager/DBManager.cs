@@ -80,28 +80,41 @@ namespace DataBaseProject.Manager
 
         public void Menu()
         {
-            Console.Clear();
-            int chose = Choose("Please Choose Action: 1)Read, 2)Change, 3)Remove, 4)Add, 5)Import");
-            switch (chose)
+            try
             {
-                case 1:
-                    Read();
-                    break;
-                case 2:
-                    Update();
-                    break;
-                case 3:
-                    Remove();
-                    break;
-                case 4:
-                    Add();
-                    break;
-                case 5:
-                    Import();
-                    break;
-                default:
-                    Console.WriteLine("Out of menu number");
-                    break;
+
+                Console.Clear();
+                int chose = Choose("Please Choose Action: 1)Read, 2)Change, 3)Remove, 4)Add, 5)Import");
+                switch (chose)
+                {
+                    case 1:
+                        Read();
+                        break;
+                    case 2:
+                        Update();
+                        break;
+                    case 3:
+                        Remove();
+                        break;
+                    case 4:
+                        Add();
+                        break;
+                    case 5:
+                        Import();
+                        break;
+                    default:
+                        Console.WriteLine("Out of menu number");
+                        break;
+                }
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine("Problem s databasi, prosim zkuste pozdeji nebo zavolejte admina ERR:{0}", e.Message);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Chyba programu ERR:{0}", e.Message);
+                Console.ReadKey();
             }
         }
 
@@ -128,7 +141,7 @@ namespace DataBaseProject.Manager
 
         private void ImportHaircuts()
         {
-            Console.WriteLine("Please write pathfile of the .csv table (example :"+ @"\C:\programs\file.txt\)");
+            Console.WriteLine("Please write pathfile of the .csv table (example :" + @"\C:\programs\file.txt\)");
             String path = Console.ReadLine();
             importer.ImportHaircuts(path);
         }
@@ -221,7 +234,7 @@ namespace DataBaseProject.Manager
 
         private void AddStaff()
         {
-            String[] questions = {"Write staff id","Name","Surname","Payment"};
+            String[] questions = { "Write staff id", "Name", "Surname", "Payment" };
             Staff staff = StaffCreater(questions);
             try
             {
@@ -249,11 +262,12 @@ namespace DataBaseProject.Manager
         private void AddHairCut()
         {
             String[] questions = { "Write Haircut name", "Haircut description", "Price (only numbers)" };
-            Haircut haircut = HaircutCreater(questions);    
+            Haircut haircut = HaircutCreater(questions);
             try
             {
                 new HaircutDAOImpl().Create(haircut);
-            } catch
+            }
+            catch
             {
                 throw;
             }
@@ -427,7 +441,7 @@ namespace DataBaseProject.Manager
             Visit visit = CreateVisit();
             CreateItems(visit);
         }
-        
+
 
         private void CreateItems(Visit visit)
         {
@@ -444,7 +458,8 @@ namespace DataBaseProject.Manager
                 try
                 {
                     staff = new StaffDAOImpl().GetByID(choose);
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
                     throw;
                 }
@@ -497,12 +512,13 @@ namespace DataBaseProject.Manager
             int id = Choose("Please choose id of the user that visited");
             User user = userDAO.GetByID(id);
             DateTime time = CreateTime();
-            Visit visit = new Visit(user,time);
+            Visit visit = new Visit(user, time);
             int another_id = -1;
             try
             {
                 another_id = visitDAO.Create(visit);
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 Console.WriteLine("There was an error with creating visit");
@@ -536,7 +552,7 @@ namespace DataBaseProject.Manager
                 Console.WriteLine("There was an error with creating date please retry");
                 dateTime = CreateTime();
             }
-                return dateTime;
+            return dateTime;
         }
         public Haircut HaircutCreater(String[] questions)
         {

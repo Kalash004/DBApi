@@ -37,7 +37,7 @@ namespace DataBaseProject.DAOS
             }
             catch (Exception e)
             {
-                throw;
+                  
             }
             finally
             {
